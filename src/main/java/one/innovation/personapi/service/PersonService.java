@@ -1,5 +1,6 @@
 package one.innovation.personapi.service;
 
+import lombok.AllArgsConstructor;
 import one.innovation.personapi.dto.response.MessageResponseDTO;
 import one.innovation.personapi.dto.request.PersonDTO;
 import one.innovation.personapi.entity.Person;
@@ -13,16 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
 
     private PersonRepository personRepository;
     private PersonMapper personMapper = PersonMapper.INSTANCE;
-
-    // put the @Autowired annotation on the constructor facilitates when the developer has to do the tests
-    @Autowired
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
 
     public MessageResponseDTO createPerson(PersonDTO personDTO) {
         final var personToSave = personMapper.toModel(personDTO);
