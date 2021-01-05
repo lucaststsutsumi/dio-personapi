@@ -28,10 +28,7 @@ public class PersonService {
         final var personToSave = personMapper.toModel(personDTO);
         final Person savedPerson = personRepository.save(personToSave);
 
-        return MessageResponseDTO
-                .builder()
-                .message("created person with ID: " + savedPerson.getId())
-                .build();
+        return createMethodResponse(savedPerson.getId(), "created person with ID: ");
     }
 
     public List<PersonDTO> listAll() {
@@ -49,7 +46,21 @@ public class PersonService {
     public void deleteById(Long id) throws PersonNotFounfException {
         verifyIfExists(id);
         personRepository.deleteById(id);
+    }
 
+    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFounfException {
+        verifyIfExists(id);
+        final var personToUpdate = personMapper.toModel(personDTO);
+        final Person savedPerson = personRepository.save(personToUpdate);
+
+        return createMethodResponse(savedPerson.getId(), "Updated person with ID: ");
+    }
+
+    private MessageResponseDTO createMethodResponse(Long id, String s) {
+        return MessageResponseDTO
+                .builder()
+                .message(s + id)
+                .build();
     }
 
     private Person verifyIfExists(Long id) throws PersonNotFounfException {
