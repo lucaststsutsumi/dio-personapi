@@ -3,6 +3,7 @@ package one.innovation.personapi.controller;
 import one.innovation.personapi.MessageResponseDTO;
 import one.innovation.personapi.dto.request.PersonDTO;
 import one.innovation.personapi.entity.Person;
+import one.innovation.personapi.exception.PersonNotFounfException;
 import one.innovation.personapi.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,5 +33,11 @@ public class PersonController {
     @ResponseStatus(HttpStatus.OK)
     public List<PersonDTO> ListAll() {
         return personService.listAll();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PersonDTO findById(@PathVariable Long id) throws PersonNotFounfException {
+        return personService.findById(id);
     }
 }
