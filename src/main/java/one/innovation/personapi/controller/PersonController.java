@@ -1,8 +1,7 @@
 package one.innovation.personapi.controller;
 
-import one.innovation.personapi.MessageResponseDTO;
+import one.innovation.personapi.dto.response.MessageResponseDTO;
 import one.innovation.personapi.dto.request.PersonDTO;
-import one.innovation.personapi.entity.Person;
 import one.innovation.personapi.exception.PersonNotFounfException;
 import one.innovation.personapi.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +39,11 @@ public class PersonController {
     public PersonDTO findById(@PathVariable Long id) throws PersonNotFounfException {
         return personService.findById(id);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) throws PersonNotFounfException {
+        personService.deleteById(id);
+    }
+
 }
