@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PersonService {
 
@@ -29,5 +32,12 @@ public class PersonService {
                 .builder()
                 .message("created person with ID: " + savedPerson.getId())
                 .build();
+    }
+
+    public List<PersonDTO> listAll() {
+        final var all = personRepository.findAll();
+        return all.stream()
+                .map(personMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
