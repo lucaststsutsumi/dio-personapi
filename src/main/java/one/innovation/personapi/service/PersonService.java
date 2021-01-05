@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private PersonRepository personRepository;
-    private PersonMapper personMapper = PersonMapper.INSTANCE;
+
+    private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
     public MessageResponseDTO createPerson(PersonDTO personDTO) {
         final var personToSave = personMapper.toModel(personDTO);
